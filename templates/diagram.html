@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ 	<script type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+     <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+
+		data.addColumn('string', 'Data');
+		data.addColumn('number', 'Temperatura');
+		data.addColumn('number', 'Wilgotność');
+
+        {% for d in data %}
+
+                var date_obj = new Date('{{ d.timestamp|date:'c' }}');
+
+                data.addRows([
+                        [date_obj.toLocaleString(), {{ d.temperature }}, {{ d.humidity }}],
+                ]);
+
+        {% endfor %}
+
+        var options = {
+          title: 'Pomiary',
+          curveType: 'function',
+          lineWidth: 2,
+          colors: ['#9FC700', '#F57D15'],
+          vAxes: {0: {logScale: false, title: 'Temperatura [C]'},
+                  1: {logScale: false, minValue: 0, maxValue: 100, title: 'Wilgotność [%RH]'}},
+
+          series:{0:{targetAxisIndex:0},
+                  1:{targetAxisIndex:1}}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<h3>Pomiary:</h3>
+<table>
+    <tr>
+        <th>Data</th>
+        <th>Temperatura</th>
+        <th>Wilgotność</th>
+    </tr>
+{% for d in data|dictsortreversed:"timestamp" %}
+    <tr>
+        <td>{{ d.timestamp }}   |</td>
+        <td>{{ d.temperature }}    |</td>
+        <td>{{ d.humidity }}    |</td>
+    </tr>
+{% endfor %}
+</table>
+  </body>
+</html>
