@@ -8,8 +8,10 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^rest/', include('apiREST.urls')),
     #czujnik przesyla dane pod adres ponizej
     url(r'^measurement/', views.measurement),
 
     url(r'^diagram/$', views.diagram, name="diagram"),
+
 )

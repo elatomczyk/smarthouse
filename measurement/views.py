@@ -1,9 +1,9 @@
 import json
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from measurement.models import MeasurementData
+from measurement.models import MeasurementData, Sensor
 from django.http import JsonResponse
-
+#  $('.dateinput').datepicker({ format: "yyyy/mm/dd" });
 
 def index(request):
     data = MeasurementData.objects.order_by('timestamp').last()
@@ -23,5 +23,20 @@ def measurement(request):
 
 
 def diagram(request):
-    data = MeasurementData.objects.all()
-    return render_to_response('diagram.html', {'data': data}, context_instance=RequestContext(request))
+    if request.POST:
+        sensorPOST = request.POST.get('s', False)
+        sensorId = Sensor.objects.get(nameSensor=sensorPOST)
+        date_start = request.POST.get('dateStart', False)
+        date_end = request.POST.get('dateEnd', False)
+
+        data = MeasurementData.objects.filter(idSensor=sensorId, timestamp__gte=date_start, timestamp__lte=date_end)
+        text = "----"
+    else:
+        text = "Wszystkie Pomiary"
+        data = MeasurementData.objects.all()
+
+    sensor = Sensor.objects.all()
+
+    return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text':text}, context_instance=RequestContext(request))
+
+

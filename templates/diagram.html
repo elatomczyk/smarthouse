@@ -2,8 +2,34 @@
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  	<script type="text/javascript"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+      $(function() {
+        $( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+        $( "#datepicker2" ).datepicker({ dateFormat: "yy-mm-dd" });
+      });
+    </script>
   </head>
   <body>
+    <form action="{% url 'diagram' %}" method="post">
+    {% csrf_token %}
+    <p>Od: <input type="text" name="dateStart" id="datepicker">
+    Do: <input type="text" name="dateEnd" id="datepicker2"></p>
+
+    <label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
+			<select name="s" >
+				<option value="" selected="selected">Sensor</option>
+				{% for s in sensor %}
+	 				<option value="{{ s}}">{{ s }}</option>
+				{% endfor %}
+            </select>
+    <p><input type="submit" value="Szukaj" id="filtr_date" /></p>
+    </form>
+    <p>{{ text }}</p>
+
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
      <script type="text/javascript">
