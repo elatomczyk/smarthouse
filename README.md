@@ -2,12 +2,27 @@
 
 Python == 2.7.6
 
-**Pakiety VirtualenV:**
+Instalacja projektu lokalnie:
 
-* Django==1.7.1
-* Markdown==2.5.2
-* Pygments==2.0.1
-* argparse==1.2.1
-* django-filter==0.9.1
-* djangorestframework==3.0.1
-* wsgiref==0.1.2
+1: Tworzymy katalog o nazwie SmarthouseV
+
+2: Będąc w katalogu SmarthouseV przygotowujemy wirtualne środowisko:
+
+	virtualenv SmartHV
+	source bin/activate
+
+3: Przechodzimy do katalogu SmartHV i pobieramy pliki projektu z repozytorium: 
+
+	git clone git@bitbucket.org:Celina_C/smarthouse.git
+	
+4: Instalujemy w środowisku potrzebne moduły. Korzystamy z pliku requirements.txt pobranego z repozytorium:
+
+	pip install -r requirements.txt
+	
+Uruchamianie projektu:
+
+1: Przechodzimy do katalogu smarthouse
+
+2: Uruchamiamy serwer:
+
+	python manage.py runserver
