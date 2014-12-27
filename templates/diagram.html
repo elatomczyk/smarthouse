@@ -14,6 +14,11 @@
     </script>
   </head>
   <body>
+    {% if user.is_anonymous %}
+  	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+    {% endif %}
+    {% if user.is_authenticated %}
     <form action="{% url 'diagram' %}" method="post">
     {% csrf_token %}
     <p>Od: <input type="text" name="dateStart" id="datepicker">
@@ -86,5 +91,6 @@
     </tr>
 {% endfor %}
 </table>
+{% endif %}
   </body>
 </html>

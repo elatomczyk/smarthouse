@@ -2,12 +2,17 @@
     <head>
     </head>
     <body>
-
+{% if user.is_anonymous %}
+	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+{% endif %}
+{% if user.is_authenticated %}
         <h2>Pomiar:</h2>
         <p>Temperatura: {{ data.temperature }}</p>
         <p>Wilgotność: {{ data.humidity }}</p>
         <p>Data: {{ data.timestamp }}</p>
 
     <a href="{% url 'diagram' %}">Diagram</a>
-    </body>
+    <a href="{% url 'logout' %}">Wyloguj</a> {{ user }}
+{% endif %}
 </html>

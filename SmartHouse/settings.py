@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'measurement',
     'rest_framework',
     'apiREST',
+    'account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,3 +87,6 @@ USE_TZ = True
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'django.contrib.auth.views.login'

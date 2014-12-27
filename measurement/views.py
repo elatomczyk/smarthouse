@@ -1,14 +1,22 @@
 import json
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from measurement.models import MeasurementData, Sensor
 from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 #  $('.dateinput').datepicker({ format: "yyyy/mm/dd" });
 
 def index(request):
     data = MeasurementData.objects.order_by('timestamp').last()
     return render_to_response('index.html', {'data': data}, context_instance=RequestContext(request))
 
+@login_required
+def user_account(request):
+    return render(request,'account.html')
+def user_home(request):
+    return render(request, 'home.html')
 
 # metoda ta zapisuje dane uzyskane od czujnika do bazy
 def measurement(request):
