@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', views.index, name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    #DjangoREST
     url(r'^rest/', include('apiREST.urls')),
     #czujnik przesyla dane pod adres ponizej
     url(r'^measurement/', views.measurement),
