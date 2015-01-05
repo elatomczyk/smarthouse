@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     #register
     url(r'^register/$', 'account.views.register_user', name='register'),
     url(r'^register/register_success/$', 'account.views.register_success'),
+    #wskaznik temperatury
+    url(r'^scope/$',views.create_scope, name="scope")
 )

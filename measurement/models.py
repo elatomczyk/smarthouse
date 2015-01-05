@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -23,3 +24,13 @@ class MeasurementData(models.Model):
 
     def __unicode__(self):
         return str(self.temperature)
+    
+class Scope(models.Model):
+    hum_min = models.FloatField(default=15)
+    hum_max = models.FloatField(default=100, max_length=100)
+    temp_min = models.FloatField(default=5)
+    temp_max = models.FloatField(default=60, max_length=100)
+    idUser = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return str(self.idUser)
