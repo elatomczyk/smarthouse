@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-from measurement.models import MeasurementData
-from apiREST.serializers import MeasurementDataSerializer
+from measurement.models import MeasurementData, Sensor
+from apiREST.serializers import MeasurementDataSerializer, SensorSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -16,6 +16,13 @@ class MeasurementGraphREST(APIView):
     def get(self, request, limit, format=None):
         dataGraph = MeasurementDataSerializer(MeasurementData.objects.order_by('-timestamp')[:limit], many=True)
         return Response(dataGraph.data)
+
+
+class SensorREST(APIView):
+    def get(self, request, format=None):
+        list = Sensor.objects.all()
+        dataSensor = SensorSerializer(list, many=True)
+        return Response(dataSensor.data)
 
 
 @api_view(['POST'])
