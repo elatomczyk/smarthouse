@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wskaźnik</title>
+	</head>
+ 	<body>
+ 	{% if user.is_authenticated %}
+ 		<p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
+ 		<form action="/scope/" method="POST">{% csrf_token %}
+			<ul>
+				{{form.as_p}}
+			</ul>
+			<input type="submit" name="submit" value="Dodaj">
+		</form>
+	{% else %}
+		<p>Nie jesteś uprawniony do oglądania tych treści!</p>
+		<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+	{% endif %}
+	</body>
+</html>

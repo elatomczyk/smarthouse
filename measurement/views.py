@@ -4,6 +4,7 @@ from django.template import RequestContext
 from measurement.models import MeasurementData, Sensor
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from measurement.forms import ScopeForm
 
 
 def index(request):
@@ -48,4 +49,14 @@ def diagram(request):
 
     return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text':text}, context_instance=RequestContext(request))
 
-
+def create_scope(request):
+    form = ScopeForm(request.POST or None)
+    user = request.user
+    if form.is_valid():
+        save_it = form.save(commit=False)
+        save_it.idUser = user
+        save_it.save()     
+    return render_to_response('scope.html',
+                              locals(),
+                              context_instance=RequestContext(request))
+    
