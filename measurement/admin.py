@@ -11,4 +11,7 @@ admin.site.register(Rooms)
 
 admin.site.register(Sensor)
 
-admin.site.register(Scope)
+class ScopeAdmin(admin.ModelAdmin):
+    list_display = ('hum_min', 'hum_max', 'temp_min', 'temp_max', 'idUser')
+
+admin.site.register(Scope,ScopeAdmin)
