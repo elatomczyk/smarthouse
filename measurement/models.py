@@ -31,6 +31,7 @@ class Scope(models.Model):
     temp_min = models.FloatField(default=5)
     temp_max = models.FloatField(default=60, max_length=100)
     idUser = models.ForeignKey(User)
+    sensor = models.ForeignKey(Sensor)#column see sensor_id
     
     def __unicode__(self):
-        return str(self.idUser)
+        return str(self.temp_min)

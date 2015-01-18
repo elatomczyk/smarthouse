@@ -1,6 +1,7 @@
+from reportlab.graphics.widgetbase import Face
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-from measurement.models import MeasurementData, Sensor
+from measurement.models import MeasurementData, Sensor, Scope
 from apiREST.serializers import MeasurementDataSerializer, SensorSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -24,7 +25,6 @@ class SensorREST(APIView):
         dataSensor = SensorSerializer(list, many=True)
         return Response(dataSensor.data)
 
-
 @api_view(['POST'])
 def login(request):
     #Django REST metoda logowania
@@ -40,3 +40,42 @@ def login(request):
             return Response({"information": "Problem with password"})
     return Response({"information": "Problem with program"})
 
+
+class CheckScope(APIView):
+    def get(self, request, username, format=None):
+        user = User.objects.get(username=username)
+        scope = Scope.objects.filter(idUser=user).values()
+
+        tab = []
+        addingDouble = False
+        for s in scope:
+            measurement = MeasurementData.objects.filter(idSensor=s['sensor_id']).order_by('-timestamp').values().last()
+
+            if not measurement:
+                break
+
+            sensor = Sensor.objects.get(id=measurement['idSensor_id'])
+
+            if measurement['temperature'] > s['temp_max'] or measurement['temperature'] < s['temp_min']:
+                tab.append(createData(True, sensor.nameSensor, measurement['temperature'], measurement['humidity']))
+                addingDouble = True
+
+            if measurement['humidity'] > s['hum_max'] or s['hum_min'] > measurement['humidity']:
+                if addingDouble == False:
+                    tab.append(createData(True, sensor.nameSensor, measurement['temperature'], measurement['humidity']))
+
+            addingDouble = False
+
+        if not tab:
+            tab.append(createData(False, 0, 0, 0))
+
+        return Response(tab)
+
+
+def createData(scope,sensor,temperature,humidity):
+    data = {'scope': scope,
+        'sensor': sensor,
+        'temperature': temperature,
+        'humidity': humidity,
+        }
+    return data

@@ -7,10 +7,12 @@
 	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
 {% endif %}
 {% if user.is_authenticated %}
-        <h2>Pomiar:</h2>
-        <p>Temperatura: {{ data.temperature }}</p>
-        <p>Wilgotność: {{ data.humidity }}</p>
-        <p>Data: {{ data.timestamp }}</p>
+        {% for d in data %}
+            <p>Czujnik: {{d.idSensor}}</p>
+            <p>Temperatura: {{ d.temperature }}</p>
+            <p>Wilgotność: {{ d.humidity }}</p>
+            <p>Data: {{ d.timestamp }}</p>
+        {% endfor %}
 
     <a href="{% url 'diagram' %}">Diagram</a>
     <a href="{% url 'scope' %}">Wskaźnik</a>

@@ -8,7 +8,13 @@ from measurement.forms import ScopeForm
 
 
 def index(request):
-    data = MeasurementData.objects.order_by('timestamp').last()
+    sensor = Sensor.objects.all()
+    data = []
+    for s in sensor:
+        m = MeasurementData.objects.filter(idSensor=s).order_by('timestamp').last()
+        if m:
+            data.append(m)
+
     return render_to_response('index.html', {'data': data}, context_instance=RequestContext(request))
 
 
