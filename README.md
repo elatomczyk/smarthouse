@@ -14,18 +14,16 @@ Instalacja projektu lokalnie:
 
 	source bin/activate
 
-3: Pobieramy pliki projektu z repozytorium: 
+4: Pobieramy pliki projektu z repozytorium: 
 
 	git clone git@bitbucket.org:Celina_C/smarthouse.git
 	
-4: Przechodzimy do katalogu smarthouse i instalujemy w środowisku potrzebne moduły. Korzystamy z pliku requirements.txt pobranego z repozytorium:
+5: Przechodzimy do katalogu smarthouse i instalujemy w środowisku potrzebne moduły. Korzystamy z pliku requirements.txt pobranego z repozytorium:
 
 	pip install -r requirements.txt
 	
 Uruchamianie projektu:
 
-1: Przechodzimy do katalogu smarthouse
-
-2: Uruchamiamy serwer:
+1: Uruchamiamy serwer:
 
 	python manage.py runserver
