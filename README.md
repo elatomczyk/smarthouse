@@ -18,7 +18,7 @@ Instalacja projektu lokalnie:
 
 	git clone git@bitbucket.org:Celina_C/smarthouse.git
 	
-4: Instalujemy w środowisku potrzebne moduły. Korzystamy z pliku requirements.txt pobranego z repozytorium:
+4: Przechodzimy do katalogu smarthouse i instalujemy w środowisku potrzebne moduły. Korzystamy z pliku requirements.txt pobranego z repozytorium:
 
 	pip install -r requirements.txt
 	
