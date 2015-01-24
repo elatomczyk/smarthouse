@@ -9,9 +9,12 @@ Instalacja projektu lokalnie:
 2: Będąc w katalogu SmarthouseV przygotowujemy wirtualne środowisko:
 
 	virtualenv SmartHV
+
+3:  Przechodzimy do katalogu SmartHV i aktywujemy środowisko virtualenv poleceniem:
+
 	source bin/activate
 
-3: Przechodzimy do katalogu SmartHV i pobieramy pliki projektu z repozytorium: 
+3: Pobieramy pliki projektu z repozytorium: 
 
 	git clone git@bitbucket.org:Celina_C/smarthouse.git
 	
