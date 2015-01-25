@@ -18,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^register/$', 'account.views.register_user', name='register'),
     url(r'^register/register_success/$', 'account.views.register_success'),
     #temperature and humidity scope
-    url(r'^scope/$',views.create_scope, name="scope")
+    url(r'^scope/$',views.create_scope, name="scope"), 
+    #mailing 
+    url(r'^email/$', 'mailing.views.email', name='email'),
 )

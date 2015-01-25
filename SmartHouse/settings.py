@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'apiREST',
     'account',
+    'mailing',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +57,11 @@ ROOT_URLCONF = 'SmartHouse.urls'
 
 WSGI_APPLICATION = 'SmartHouse.wsgi.application'
 
+EMAIL_USE_TLS = True 
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'smarthousekrakow@gmail.com' 
+EMAIL_HOST_PASSWORD = 'agnieszka14' 
+EMAIL_PORT = 587
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

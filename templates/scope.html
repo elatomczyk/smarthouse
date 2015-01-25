@@ -5,6 +5,14 @@
 	</head>
  	<body>
  	{% if user.is_authenticated %}
+ 	<p>Lista urządzeń:</p> 
+ 	<table> 
+ 		{% for sensor in all_sensor %} 
+ 			<tr> 
+ 				<td>{{ sensor }}</td> 
+ 			</tr> 
+ 		{% endfor  %}
+ 	</table>  
  		<p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
  		<form action="/scope/" method="POST">{% csrf_token %}
 			<ul>

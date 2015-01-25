@@ -58,11 +58,18 @@ def diagram(request):
 def create_scope(request):
     form = ScopeForm(request.POST or None)
     user = request.user
+    all_sensor = Sensor.objects.all()
     if form.is_valid():
         save_it = form.save(commit=False)
         save_it.idUser = user
-        save_it.save()     
-    return render_to_response('scope.html',
-                              locals(),
-                              context_instance=RequestContext(request))
-    
+        save_it.save()
+    return render_to_response('scope.html', locals(), context_instance=RequestContext(request))
+'''    
+def scope(request): 
+    all_sensor = Sensor.objects.all() 
+    if request.POST: 
+        choice = Sensor.objects.filter(id=request.POST.get('choice', False)) 
+    else: 
+        choice = 0 
+    return render_to_response('scope.html', {'all_sensor': all_sensor}, context_instance=RequestContext(request)) 
+'''

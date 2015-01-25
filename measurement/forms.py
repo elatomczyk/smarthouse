@@ -12,4 +12,4 @@ class ScopeForm(forms.ModelForm):
      
     class Meta:
         model = Scope
-        fields = ('temp_min', 'temp_max', 'hum_min', 'hum_max') 
+        fields = ('temp_min', 'temp_max', 'hum_min', 'hum_max','sensor') 
