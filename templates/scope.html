@@ -6,13 +6,18 @@
  	<body>
  	{% if user.is_authenticated %}
  	<p>Lista urządzeń:</p> 
- 	<table> 
- 		{% for sensor in all_sensor %} 
- 			<tr> 
- 				<td>{{ sensor }}</td> 
- 			</tr> 
- 		{% endfor  %}
- 	</table>  
+ 	<form action="{% url 'scope' %}" method="post">
+    {% csrf_token %}
+ 	<label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
+ 		<select name="s" >
+ 			<option value="" selected="selected">Sensor</option>
+ 				{% for s in sensor %}
+	 				<option value="{{ s}}">{{ s }}</option>
+				{% endfor %}
+		</select>
+		<p><input type="submit" value="Szukaj"></p>
+    	</form> 
+    	<p>{{ temp_min }}</p>
  		<p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
  		<form action="/scope/" method="POST">{% csrf_token %}
 			<ul>

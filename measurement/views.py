@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from measurement.models import MeasurementData, Sensor
+from measurement.models import MeasurementData, Sensor, Scope
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from measurement.forms import ScopeForm
@@ -57,19 +57,20 @@ def diagram(request):
 
 def create_scope(request):
     form = ScopeForm(request.POST or None)
-    user = request.user
+    tempMin = 0
     all_sensor = Sensor.objects.all()
-    if form.is_valid():
-        save_it = form.save(commit=False)
-        save_it.idUser = user
-        save_it.save()
-    return render_to_response('scope.html', locals(), context_instance=RequestContext(request))
-'''    
-def scope(request): 
-    all_sensor = Sensor.objects.all() 
-    if request.POST: 
-        choice = Sensor.objects.filter(id=request.POST.get('choice', False)) 
-    else: 
-        choice = 0 
-    return render_to_response('scope.html', {'all_sensor': all_sensor}, context_instance=RequestContext(request)) 
-'''
+    if request.POST:
+        user = request.user
+        sensorPOST = request.POST.get('s', False)
+        sensorId = Sensor.objects.get(nameSensor = sensorPOST)
+        users_scope = Scope.objects.filter(idUser = user.id, sensor = sensorId).values()
+        if (users_scope == True):
+            tempMin = users_scope[0]['temp_min']
+        else:
+            tempMin = 0
+            if form.is_valid():
+                save_it = form.save(commit=False)
+                save_it.idUser = user
+                save_it.save()
+    return render_to_response('scope.html',  {'sensor': all_sensor, 'temp_min': tempMin }, context_instance=RequestContext(request))
+

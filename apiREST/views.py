@@ -1,4 +1,4 @@
-from reportlab.graphics.widgetbase import Face
+#from reportlab.graphics.widgetbase import Face
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from measurement.models import MeasurementData, Sensor, Scope
