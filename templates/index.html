@@ -2,10 +2,7 @@
     <head>
     </head>
     <body>
-{% if user.is_anonymous %}
-	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
-	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
-{% endif %}
+
 {% if user.is_authenticated %}
         {% for d in data %}
             <p>Czujnik: {{d.idSensor}}</p>
@@ -16,7 +13,12 @@
 
     <a href="{% url 'diagram' %}">Diagram</a>
     <a href="{% url 'scope' %}">Wskaźnik</a>
-    <a href='{% url "email" %}'>Email</a>
     <a href="{% url 'logout' %}">Wyloguj</a> {{ user }}
+{% else %}
+
+	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+
 {% endif %}
+    </body>
 </html>

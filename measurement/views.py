@@ -5,7 +5,10 @@ from measurement.models import MeasurementData, Sensor, Scope
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from measurement.forms import ScopeForm
+from mailing.views import threadmethod
 
+#metoda do wysywania maili
+threadmethod()
 
 def index(request):
     sensor = Sensor.objects.all()
@@ -55,6 +58,7 @@ def diagram(request):
 
     return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text':text}, context_instance=RequestContext(request))
 
+#TODO uztkownik moze tylko raz zapisac wskaznik do danego czujnika
 def create_scope(request):
     form = ScopeForm(request.POST or None)
     tempMin = 0
