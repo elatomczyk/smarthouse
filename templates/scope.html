@@ -17,17 +17,24 @@
 		</select>
 		<p><input type="submit" value="Szukaj"></p>
     	</form> 
-    	<p>{{ temp_min }}</p>
- 		<p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
- 		<form action="/scope/" method="POST">{% csrf_token %}
-			<ul>
-				{{form.as_p}}
-			</ul>
-			<input type="submit" name="submit" value="Dodaj">
-		</form>
-	{% else %}
-		<p>Nie jesteś uprawniony do oglądania tych treści!</p>
-		<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+    	{% if state %}
+    		<p>{{ temp_max}}</p>
+    		<p>{{ temp_min }}</p>
+    		<p>{{ hum_max }}</p>
+    		<p>{{ hum_min }}</p>
+    	{% else %}
+    		<p>Nie istnieje wskaźnik dla tego urządzenia mierzącego</p>
+ 			<p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
+ 			<form action="/scope/" method="POST">{% csrf_token %}
+				<ul>
+					{{form.as_p}}
+				</ul>
+				<input type="submit" name="submit" value="Dodaj">
+			</form>
+		{% endif %}
+		{% else %}
+			<p>Nie jesteś uprawniony do oglądania tych treści!</p>
+			<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
 	{% endif %}
 	</body>
 </html>
