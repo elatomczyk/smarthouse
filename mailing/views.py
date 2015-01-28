@@ -34,8 +34,9 @@ def email(user):
     message = get_template('email.html').render(Context(ctx))
     msg = EmailMessage(subject, message, to=to, from_email=from_email)
     msg.content_subtype = 'html'
-    scope = Scope.objects.get(idUser=1)
-    #print user_name.id
+    print user_name.id
+    scope = Scope.objects.get(idUser=user_name.id)
+
     t_max = scope.temp_max 
     t_min = scope.temp_min
     h_max = scope.hum_max
