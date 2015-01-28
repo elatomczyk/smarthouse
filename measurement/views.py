@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from measurement.forms import ScopeForm
 from mailing.views import threadmethod
+from django.http import HttpResponseRedirect
 
 #metoda do wysywania maili
 threadmethod()
@@ -58,23 +59,41 @@ def diagram(request):
 
     return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text':text}, context_instance=RequestContext(request))
 
-#TODO uztkownik moze tylko raz zapisac wskaznik do danego czujnika
-def create_scope(request):
+
+
+def create_scope(request, sensorr):
     form = ScopeForm(request.POST or None)
-    tempMin = 0
+    user = request.user
+    if form.is_valid():
+        save_it = form.save(commit=False)
+        save_it.idUser = user
+        save_it.sensor = sensorr
+        save_it.save()
+    
+
+#TODO uztkownik moze tylko raz zapisac wskaznik do danego czujnika
+def scope(request):
+    tempMax = None
+    tempMin = None
+    humMax = None
+    humMin = None
+    state = None
     all_sensor = Sensor.objects.all()
     if request.POST:
         user = request.user
         sensorPOST = request.POST.get('s', False)
         sensorId = Sensor.objects.get(nameSensor = sensorPOST)
         users_scope = Scope.objects.filter(idUser = user.id, sensor = sensorId).values()
-        if (users_scope == True):
+        if (users_scope):
+            state = True
+            tempMax = users_scope[0]['temp_max']
             tempMin = users_scope[0]['temp_min']
+            humMax = users_scope[0]['hum_max']
+            humMin = users_scope[0]['hum_min']
         else:
-            tempMin = 0
-            if form.is_valid():
-                save_it = form.save(commit=False)
-                save_it.idUser = user
-                save_it.save()
-    return render_to_response('scope.html',  {'sensor': all_sensor, 'temp_min': tempMin }, context_instance=RequestContext(request))
+            print sensorId.id
+            sensorr = sensorId.id
+            create_scope(request, sensorr);
+    return render_to_response('scope.html',  {'state':state, 'form': ScopeForm(),
+                                               'sensor': all_sensor, 'temp_min': tempMin, 'temp_max': tempMax, 'hum_max':humMax, 'hum_min':humMin }, context_instance=RequestContext(request))
 
