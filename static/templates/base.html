@@ -7,7 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="..//favicon.ico">
-
+    {% block head %}
+    {% endblock %}
     <title>Smart House</title>
 
     <!-- Bootstrap core CSS -->
@@ -59,12 +60,8 @@
 
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
         {% block content %}
         {% endblock %}
-      </div>
-
-
       <footer>
         <p>&copy; Company 2014</p>
       </footer>

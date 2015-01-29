@@ -36,7 +36,31 @@ body {
 .margin-new{
     margin-top:100px;
 }
-
-.col-md-6 {
+.col-md-3 {
     position: unset;
+    width: 33%;
+}
+
+.chart_div {
+    position: unset;
+}
+
+.btn-primary {
+    color: #fdeee2;
+    background-color: #7F3137;
+    border-color: #714354;
+}
+
+.btn-primary:active, .btn-primary:hover{
+    color: #714354;
+    background-color: #fdeee2;
+    border-color: #7F3137;
+}
+
+.jumbotron {
+    background-color: #fdeee2;
+}
+
+.jumbotron h1 {
+    font-size: 33px;
 }

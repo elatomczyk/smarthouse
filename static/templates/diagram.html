@@ -1,5 +1,7 @@
-<html>
-  <head>
+{% extends 'base.html' %}
+
+    {% block head %}
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  	<script type="text/javascript"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
@@ -12,11 +14,15 @@
         $( "#datepicker2" ).datepicker({ dateFormat: "yy-mm-dd" });
       });
     </script>
-  </head>
-  <body>
+{% endblock %}
+  {% block content %}
     {% if user.is_anonymous %}
-  	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
-	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Aby mieć dostęp do danych, musisz się zalogować!</h1>
+        <p><a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a></p>
+      </div>
+    </div>
     {% endif %}
     {% if user.is_authenticated %}
     <form action="{% url 'diagram' %}" method="post">
@@ -34,7 +40,7 @@
     <p><input type="submit" value="Szukaj" id="filtr_date" /></p>
     </form>
     <p>{{ text }}</p>
-
+    <div class="col-md-12">
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
      <script type="text/javascript">
@@ -75,7 +81,7 @@
         chart.draw(data, options);
       }
     </script>
-
+</div>
 <h3>Pomiary:</h3>
 <table>
     <tr>
@@ -92,5 +98,4 @@
 {% endfor %}
 </table>
 {% endif %}
-  </body>
-</html>
+  {% endblock %}

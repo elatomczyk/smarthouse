@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Wskaźnik</title>
-	</head>
- 	<body>
+{% extends 'base.html' %}
+        {% block content %}
  	{% if user.is_authenticated %}
  	<p>Lista urządzeń:</p> 
  	<form   action="{% url 'scope' %}" enctype="multipart/form-data" method="post">
@@ -45,5 +41,4 @@
 			<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
 
 	{% endif %}
-	</body>
-</html>
+ {% endblock %}
