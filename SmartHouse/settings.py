@@ -90,9 +90,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-
 STATIC_URL = '/static/'
+
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(BASE_DIR), "smarthouse/static", "templates"),
+)
+
+if DEBUG:
+    MEDIA_URL = '/media/'
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "smarthouse/static", "static-only")
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "smarthouse/static", "media")
+    STATICFILES_DIRS = (
+        os.path.join(os.path.dirname(BASE_DIR), "smarthouse/static", "static"),
+
+    )
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'django.contrib.auth.views.login'

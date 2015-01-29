@@ -1,0 +1,34 @@
+body {
+    background-color: #fdeee2;
+}
+
+.navbar-fixed-top {
+    background-color: #3f242f !important;
+}
+
+.navbar-default {
+    background-color: #7F3137;
+    border: none;
+}
+
+.custom {
+    position: fixed;
+    top: 50px;
+    width:100%;
+    height: 100px;
+}
+
+.mine {
+    margin-left: 30px;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+}
+

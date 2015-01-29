@@ -24,7 +24,14 @@ def index(request):
 
 @login_required
 def user_account(request):
-    return render(request,'account.html')
+    return render(request, 'account.html')
+
+
+def custom_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/")
+    else:
+        return login(request)
 
 
 def user_home(request):
