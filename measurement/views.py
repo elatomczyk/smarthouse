@@ -9,7 +9,7 @@ from mailing.views import threadmethod
 from django.http import HttpResponseRedirect
 
 #metoda do wysywania maili
-threadmethod()
+#threadmethod()
 
 def index(request):
     sensor = Sensor.objects.all()
@@ -68,39 +68,74 @@ def diagram(request):
 
 
 
-def create_scope(request, sensorr):
+def create_scope(request, sensorName):
     form = ScopeForm(request.POST or None)
     user = request.user
+    #sensor = Sensor.objects.get(id=sensorName)
+    #sensor = sensorName
+    print "Sensor create: ",
     if form.is_valid():
         save_it = form.save(commit=False)
         save_it.idUser = user
-        save_it.sensor = sensorr
+        #save_it.sensor = sensor
         save_it.save()
-    
 
-#TODO uztkownik moze tylko raz zapisac wskaznik do danego czujnika
+
 def scope(request):
-    tempMax = None
-    tempMin = None
-    humMax = None
-    humMin = None
-    state = None
+    measurement = {
+            'tempMax': 0,
+            'tempMin': 0,
+            'humMax': 0,
+            'humMin': 0,
+    }
+    state = False
     all_sensor = Sensor.objects.all()
+    sensorName = None
     if request.POST:
         user = request.user
-        sensorPOST = request.POST.get('s', False)
-        sensorId = Sensor.objects.get(nameSensor = sensorPOST)
-        users_scope = Scope.objects.filter(idUser = user.id, sensor = sensorId).values()
-        if (users_scope):
-            state = True
-            tempMax = users_scope[0]['temp_max']
-            tempMin = users_scope[0]['temp_min']
-            humMax = users_scope[0]['hum_max']
-            humMin = users_scope[0]['hum_min']
-        else:
-            print sensorId.id
-            sensorr = sensorId.id
-            create_scope(request, sensorr);
-    return render_to_response('scope.html',  {'state':state, 'form': ScopeForm(),
-                                               'sensor': all_sensor, 'temp_min': tempMin, 'temp_max': tempMax, 'hum_max':humMax, 'hum_min':humMin }, context_instance=RequestContext(request))
+        sensor = request.POST.get('s', False)
+        if sensor:
+            sensorName= sensor
+            sensorTmp = Sensor.objects.get(nameSensor=sensor)
+            sensorSelected= Scope.objects.filter(sensor=sensorTmp.id, idUser=user).values()
+            if sensorSelected:
+                state=True
+                measurement['tempMax'] = sensorSelected[0]['temp_max']
+                measurement['tempMin'] = sensorSelected[0]['temp_min']
+                measurement['humMax'] = sensorSelected[0]['hum_max']
+                measurement['humMin'] = sensorSelected[0]['hum_min']
 
+            else:
+                return HttpResponseRedirect('/scope/form/'+str(sensorTmp.id))
+
+    return render_to_response('scope.html', {'sensor':all_sensor, 'data': measurement,
+                                             'state': state, 'sensorName': sensorName},
+                              context_instance=RequestContext(request))
+
+
+def formScope(request, pk):
+    form = ScopeForm(request.POST or None)
+    user = request.user
+    sensorID = pk
+    sensor = Sensor.objects.get(id=pk)
+    userScope = Scope.objects.filter(idUser=user, sensor=sensor)
+
+    if userScope:
+        return HttpResponseRedirect('/scope')
+
+    if form.is_valid():
+        save_it = form.save(commit=False)
+        save_it.idUser = user
+        save_it.sensor=sensor
+        save_it.save()
+        return HttpResponseRedirect('/scope')
+    return render_to_response('formScope.html',
+                              {'idSensor': sensorID, 'form': form},
+                              context_instance=RequestContext(request))
+
+def deleteScope(request, nameSensor):
+    user = request.user
+    sensor = Sensor.objects.get(nameSensor=nameSensor)
+    scope = Scope.objects.filter(idUser=user, sensor = sensor.id)
+    scope.delete()
+    return HttpResponseRedirect('/scope')
