@@ -26,42 +26,44 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/">Smart</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    </div>
-  </div><!-- /.container-fluid -->
-</nav>
-
-<div class="custom">
-<nav class="navbar navbar-default navbar-lower" role="navigation">
-  <div class="container">
-    <div class = "mine">
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">House</a>
+          <a class="navbar-brand" href="/">Smart</a>
         </div>
-    </div>
-    <div class="collapse navbar-collapse collapse-buttons">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/">Strona główna</a></li>
-            <li><a href="{% url 'diagram' %}">Diagram</a></li>
-            <li><a href="{% url 'scope' %}">Wskaźnik</a></li>
-            <li><a href="{% url 'logout' %}">Kontakt</a></li>
-          </ul>
+    <div class="custom">
+        <nav class="navbar navbar-default navbar-lower" role="navigation">
+            <div class="container">
+                <div class = "mine">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">House</a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse collapse-buttons">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Strona główna</a></li>
+                        <li><a href="{% url 'diagram' %}">Diagram</a></li>
+                        <li><a href="{% url 'scope' %}">Wskaźnik</a></li>
+                        <li><a href="{% url 'logout' %}">Kontakt</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-  </div>
-</nav>
-</div>
 
     <div class="container">
       <!-- Example row of columns -->
+      <div class="row">
+        {% block content %}
+        {% endblock %}
+      </div>
 
-      <hr>
 
       <footer>
         <p>&copy; Company 2014</p>

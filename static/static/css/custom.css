@@ -1,5 +1,6 @@
 body {
     background-color: #fdeee2;
+    padding-top: 100px;
 }
 
 .navbar-fixed-top {
@@ -32,3 +33,10 @@ body {
     font-size: 20px;
 }
 
+.margin-new{
+    margin-top:100px;
+}
+
+.col-md-6 {
+    position: unset;
+}

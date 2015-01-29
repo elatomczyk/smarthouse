@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-        {% for d in data %}
-            <p>Czujnik: {{d.idSensor}}</p>
-            <p>Temperatura: {{ d.temperature }}</p>
-            <p>Wilgotność: {{ d.humidity }}</p>
-            <p>Data: {{ d.timestamp }}</p>
-        {% endfor %}
 {% if user.is_authenticated %}
-    <a href="{% url 'diagram' %}">Diagram</a>
-    <a href="{% url 'scope' %}">Wskaźnik</a>
-    <a href="{% url 'logout' %}">Wyloguj</a> {{ user }}
+        {% for d in data %}
+         <div class="col-md-6 text-center">
+          <h1>{{d.idSensor}}</h1>
+            <h3>Temperatura: {{ d.temperature }}</h3>
+            <h3>Wilgotność: {{ d.humidity }}</h3>
+            <h3>Data: {{ d.timestamp }}</h3>
+        </div>
+        {% endfor %}
 {% else %}
 
-	<h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
-	<a href="{% url 'django.contrib.auth.views.login' %}">Zaloguj</a>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Aby mieć dostęp do danych, musisz się zalogować!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a></p>
+      </div>
+    </div>
 
 {% endif %}
 {% endblock %}
