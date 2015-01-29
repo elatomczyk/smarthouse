@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^register/$', 'account.views.register_user', name='register'),
     url(r'^register/register_success/$', 'account.views.register_success'),
     #temperature and humidity scope
-    url(r'^scope/$',views.scope, name="scope"), 
+    url(r'^scope/$',views.scope, name="scope"),
+    url(r'^scope/form/(?P<pk>\d+)/$', views.formScope, name='formScope'),
+    url(r'^scope/form/(?P<nameSensor>[0-9a-zA-Z  _-]+)/$', views.deleteScope, name='deleteScope'),
 
 )
