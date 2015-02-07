@@ -1,18 +1,27 @@
 {% extends 'base.html' %}
-        {% block content %}
+{% block content %}
+    <div class="col-md-6 col-md-offset-3 text-center">
  	{% if user.is_authenticated %}
- 	<p>Lista urządzeń:</p> 
- 	<form   action="{% url 'scope' %}" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
- 	<label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
- 		<select name="s" >
- 			<option value="" selected="selected">Sensor</option>
- 				{% for s in sensor %}
-	 				<option value="{{ s}}">{{ s }}</option>
-				{% endfor %}
-		</select>
-		<p><input type="submit" name="bt1" value="Szukaj"></p>
-    	</form>
+ 	<h1 style="text-align: center">Lista urządzeń:</h1>
+
+
+
+            <form action="{% url 'scope' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <div class="form-group form-inline">
+                    <label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
+                    <div class="row">
+                    <select class="form-control col-md-9" name="s" >
+                        <option value="" selected="selected">Sensor</option>
+                            {% for s in sensor %}
+                                <option value="{{ s}}">{{ s }}</option>
+                            {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-primary col-md-3" name="bt1" value="Szukaj">
+                    </div>
+                </div>
+            </form>
+        </div>
 			{% if state %}
 				<p> Czujnik: {{ sensorName }}</p>
 				<table>
@@ -41,4 +50,5 @@
 			<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
 
 	{% endif %}
+    </div>
  {% endblock %}
