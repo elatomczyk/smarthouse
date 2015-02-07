@@ -19,6 +19,10 @@ body {
     height: 100px;
 }
 
+.navbar-fixed-lower {
+    position: static;
+}
+
 .mine {
     margin-left: 30px;
 }
@@ -37,12 +41,12 @@ body {
     margin-top:100px;
 }
 .col-md-3 {
-    position: unset;
+    position: static;
     width: 33%;
 }
 
-.chart_div {
-    position: unset;
+.col-md-12 {
+    position: static;
 }
 
 .btn-primary {
