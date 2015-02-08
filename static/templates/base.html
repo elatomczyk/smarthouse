@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,51 +26,56 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Smart</a>
+            <a class="navbar-brand" href="/">Smart</a>
         </div>
+        {% if user.is_authenticated %}
+            <div class="myclass">
+                <a id="logout" href="{% url 'logout' %}">Wyloguj</a> {{ user }} <span class="glyphicon glyphicon-user"></span>
+            </div>
+        {% endif %}
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         </div>
-      </div><!-- /.container-fluid -->
-    </nav>
+    </div><!-- /.container-fluid -->
+</nav>
 
-    <div class="custom">
-        <nav class="navbar navbar-default navbar-fixed-lower" role="navigation">
-            <div class="container">
-                <div class = "mine">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/">House</a>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse collapse-buttons">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Strona główna</a></li>
-                        <li><a href="{% url 'diagram' %}">Diagram</a></li>
-                        <li><a href="{% url 'scope' %}">Wskaźnik</a></li>
-                        <li><a href="{% url 'logout' %}">Kontakt</a></li>
-                    </ul>
+<div class="custom">
+    <nav class="navbar navbar-default navbar-fixed-lower" role="navigation">
+        <div class="container">
+            <div class = "mine">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">House</a>
                 </div>
             </div>
-        </nav>
-    </div>
+            <div class="collapse navbar-collapse collapse-buttons">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Strona główna</a></li>
+                    <li><a href="{% url 'diagram' %}">Diagram</a></li>
+                    <li><a href="{% url 'scope' %}">Wskaźnik</a></li>
+                    <li><a href="{% url 'logout' %}">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
-    <div class="container">
-      <!-- Example row of columns -->
-        {% block content %}
-        {% endblock %}
-    </div> <!-- /container -->
+<div class="container">
+    <!-- Example row of columns -->
+    {% block content %}
+    {% endblock %}
+</div> <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="/static/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+</body>
 </html>
