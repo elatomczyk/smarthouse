@@ -4,46 +4,84 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <p>Nie istnieje wskaźnik dla tego urządzenia mierzącego</p>
-                <p>Określ zakresy temperatury i wilgotności po przekroczeniu których wysłać maila z powiadomieniem:</p>
-                <form role="form" action="{% url 'formScope' idSensor  %}" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">Temperatura maksymalna:</div>
-                            <input class="form-control col-md-4" id="temp_max" name="temp_max" value="25" step="any" type="number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">Temperatura minimalna:</div>
-                            <input class="form-control col-md-5" id="temp_min" name="temp_min" value="-5" step="any" type="number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">Wilgotność maksymalna:</div>
-                            <input class="form-control col-md-5" id="hum_max" name="hum_max" value="80" step="any" type="number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">Wilgotność minimalna:</div>
-                            <input class="form-control col-md-5" id="hum_min" name="hum_min" value="15" step="any" type="number">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="submit" class="form-control btn btn-primary" name="submit" value="Dodaj" />
-                        </div>
-                        <a class="btn btn-primary col-md-4" type="button" href="{% url 'scope' %}">Wstecz</a>
-                    </div>
-                </form>
-
-                {% else %}
-                <p>Nie jesteś uprawniony do oglądania tych treści!</p>
-                <p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+                <div class="alert alert-warning alert-danger">Nie istnieje wskaźnik dla tego urządzenia mierzącego</div>
+                
+                <h1 style="text-align: center" >Dodaj Wskaźnik</h1>
             </div>
             <div class="col-md-2"></div>
         </div>
+
+
+
+        <form role="form" action="{% url 'formScope' idSensor  %}" method="POST">{% csrf_token %}
+
+            <div class="row">
+                <div class="form-group">
+                <div class="col-md-2"></div>
+                    <div class="col-md-3"><h4>Temperatura maksymalna:</h4></div>
+                    <div class="col-md-5">
+                        <input class="form-control" id="temp_max" name="temp_max" value="25" step="any" type="number">
+                    </div>
+                <div class="col-md-2"></div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+
+            <div class="row">
+                <div class="form-group">
+                <div class="col-md-2"></div>
+                    <div class="col-md-3"><h4>Temperatura minimalna:</h4></div>
+                    <div class="col-md-5">
+                        <input class="form-control" id="temp_min" name="temp_min" value="-5" step="any" type="number">
+                    </div>
+                <div class="col-md-2"></div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+
+            <div class="row">
+                <div class="form-group">
+                <div class="col-md-2"></div>
+                    <div class="col-md-3"><h4>Wilgotność maksymalna:</h4></div>
+                    <div class="col-md-5">
+                    <input class="form-control " id="hum_max" name="hum_max" value="80" step="any" type="number">
+                    </div>
+                <div class="col-md-2"></div>
+                </div>
+            </div>
+
+            <div class="form-group"></div>
+
+            <div class="row">
+                <div class="form-group">
+                <div class="col-md-2"></div>
+                    <div class="col-md-3"><h4>Wilgotność minimalna:</h4></div>
+                    <div class="col-md-5">
+                        <input class="form-control " id="hum_min" name="hum_min" value="15" step="any" type="number">
+                    </div>
+                <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row">
+                <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <input type="submit" class="form-control btn btn-primary" name="submit" value="Dodaj" />
+                        </div>
+                        <div class="col-md-4">
+                            <a class="form-control btn btn-primary" type="button" href="{% url 'scope' %}">Wstecz</a>
+                        </div>
+                        <div class="col-md-2"></div>
+                </div>
+            </div>
+        </form>
+        {% else %}
+            <p>Nie jesteś uprawniony do oglądania tych treści!</p>
+            <p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+
+
     {% endif %}
 {% endblock %}
