@@ -21,7 +21,6 @@
 </div>
 {% endif %}
 {% if user.is_authenticated %}
-
 <form role="form" action="{% url 'diagram' %}" method="post">
     {% csrf_token %}
     <div class="row">

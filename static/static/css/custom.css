@@ -125,3 +125,8 @@ h1 {
     padding-bottom: 15px;
     color: #3F242F;
 }
+
+.datepicker table tr td.active.active{
+    background-color: #3F242F !important;
+    background-image: -moz-linear-gradient(center top , #7F3137, #7F3137);
+}
