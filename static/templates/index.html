@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% if user.is_authenticated %}
+        <h1 style="text-align: center">Ostatnie pomiary</h1>
         <div class="row">
             {% for d in data %}
                 <div class="col-md-6">
@@ -32,8 +33,12 @@
     {% else %}
         <div class="jumbotron">
             <div class="container">
-                <h1>Aby mieć dostęp do danych, musisz się zalogować!</h1>
-                <p><a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a></p>
+                <div class="col-md-1"></div>
+                <div class="col-md-10 text-center">
+                    <h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+                    <a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a>
+                </div>
+                <div class="col-md-1"></div>
             </div>
         </div>
     {% endif %}

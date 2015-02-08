@@ -1,6 +1,7 @@
 body {
     background-color: #fdeee2;
     padding-top: 140px;
+    font-family: "Ubuntu", sans-serif;
 }
 
 .container {
@@ -44,15 +45,30 @@ body {
     font-size: 20px;
 }
 
-.margin-new{
-    margin-top:100px;
-}
-.col-md-3 {
-    position: static;
+.navbar-default .navbar-brand:hover {
+    color: #fdeee2;
+    background-color: transparent;
 }
 
-.col-md-12 {
-    position: static;
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar-default .navbar-nav > li > a {
+    color: #FDEEE2;
+    text-transform: uppercase;
+}
+
+.margin-new{
+    margin-top:100px;
 }
 
 .btn-primary {
@@ -64,8 +80,13 @@ body {
 .btn-primary:active, .btn-primary:hover{
     color: #fdeee2;
     background-color: #714354;
-
     border-color: #7F3137;
+}
+
+.form-control:focus{
+    border-color: #7F3137;
+    box-shadow: #7F3137;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(113, 67, 84, 0.60);
 }
 
 .jumbotron {
@@ -119,4 +140,13 @@ body {
 #tableGraph th{
 
     color: #7F3137;
+}
+h1 {
+    padding-bottom: 15px;
+    color: #3F242F;
+}
+
+.datepicker table tr td.active.active{
+    background-color: #3F242F !important;
+    background-image: -moz-linear-gradient(center top , #7F3137, #7F3137);
 }

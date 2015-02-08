@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <h1 style="text-align: center">Lista urządzeń:</h1>
+                <h1 style="text-align: center">Lista urządzeń</h1>
             </div>
             <div class="col-md-2"></div>
         </div>
@@ -53,8 +53,16 @@
             <a href="{% url 'deleteScope' sensorName %}"><span class="glyphicon bigger glyphicon-remove-sign"></span></a>
         {% endif %}
     {% else %}
-        <p>Nie jesteś uprawniony do oglądania tych treści!</p>
-        <p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 text-center">
+                    <h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+                    <a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
     {% endif%}
 </div>
 <div class="col-md-2"></div>
