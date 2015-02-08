@@ -52,6 +52,7 @@ def measurement(request):
 
 
 def diagram(request):
+    sensor = Sensor.objects.all()
     try:
         if request.POST:
             sensorPOST = request.POST.get('s', False)
@@ -69,10 +70,10 @@ def diagram(request):
         sensor = Sensor.objects.all()
     except ObjectDoesNotExist:
         textproblem = "Prosze o wybranie czujnika."
-        return render(request, 'diagram.html', { 'problem': textproblem, })
+        return render(request, 'diagram.html', { 'problem': textproblem, 'sensor': sensor })
     except ValidationError as e:
         textproblem = "Prosze o wybranie daty."
-        return render(request, 'diagram.html', { 'problem': textproblem, })
+        return render(request, 'diagram.html', { 'problem': textproblem, 'sensor': sensor})
     return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text': text}, context_instance=RequestContext(request))
 
 
