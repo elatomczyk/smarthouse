@@ -44,14 +44,6 @@ body {
 .margin-new{
     margin-top:100px;
 }
-.col-md-3 {
-    position: static;
-    width: 33%;
-}
-
-.col-md-12 {
-    position: static;
-}
 
 .btn-primary {
     color: #fdeee2;
