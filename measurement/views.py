@@ -1,4 +1,6 @@
 import json
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from measurement.models import MeasurementData, Sensor, Scope
@@ -50,21 +52,28 @@ def measurement(request):
 
 
 def diagram(request):
-    if request.POST:
-        sensorPOST = request.POST.get('s', False)
-        sensorId = Sensor.objects.get(nameSensor=sensorPOST)
-        date_start = request.POST.get('dateStart', False)
-        date_end = request.POST.get('dateEnd', False)
+    try:
+        if request.POST:
+            sensorPOST = request.POST.get('s', False)
+            sensorId = Sensor.objects.get(nameSensor=sensorPOST)
+            date_start = request.POST.get('dateStart', False)
+            date_end = request.POST.get('dateEnd', False)
 
-        data = MeasurementData.objects.filter(idSensor=sensorId, timestamp__gte=date_start, timestamp__lte=date_end)
-        text = "----"
-    else:
-        text = "Wszystkie Pomiary"
-        data = MeasurementData.objects.all()
+            data = MeasurementData.objects.filter(idSensor=sensorId, timestamp__gte=date_start, timestamp__lte=date_end)
+            text = "----"
+        else:
+            text = "Wszystkie Pomiary"
+            data = MeasurementData.objects.all()
+            sensor = Sensor.objects.all()
 
-    sensor = Sensor.objects.all()
-
-    return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text':text}, context_instance=RequestContext(request))
+        sensor = Sensor.objects.all()
+    except ObjectDoesNotExist:
+        textproblem = "Prosze o wybranie czujnika."
+        return render(request, 'diagram.html', { 'problem': textproblem, })
+    except ValidationError as e:
+        textproblem = "Prosze o wybranie daty."
+        return render(request, 'diagram.html', { 'problem': textproblem, })
+    return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text': text}, context_instance=RequestContext(request))
 
 
 

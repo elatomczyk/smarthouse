@@ -116,3 +116,7 @@ body {
 .panel-primary {
     border-color: #714354;
 }
+#tableGraph th{
+
+    color: #7F3137;
+}

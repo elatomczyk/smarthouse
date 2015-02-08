@@ -21,6 +21,16 @@
 </div>
 {% endif %}
 {% if user.is_authenticated %}
+ <h1 style="text-align: center" >Diagram</h1>
+<div class = "row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    {% if problem %}
+        <div class="alert alert-warning alert-danger">{{ problem }}</div>
+    {% endif %}
+    </div>
+    <div class="col-md-2"></div>
+</div>
 
 <form role="form" action="{% url 'diagram' %}" method="post">
     {% csrf_token %}
@@ -67,33 +77,12 @@
 
 </form>
 
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table class="table">
-            <tr>
-
-                <th>Temperatura</th>
-                <th>Wilgotność</th>
-                <th>Data</th>
-            </tr>
-            {% for d in data|dictsortreversed:"timestamp" %}
-            <tr>
-                <td class="col-md-4">{{ d.temperature }}    </td>
-                <td class="col-md-4">{{ d.humidity }}    </td>
-                <td class="col-md-4">{{ d.timestamp }}   </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <div class="col-md-2"></div>
-</div>
 
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
 
-        <div id="chart_div" style="width: auto; height: 500px;"></div>
+        <div id="chart_div" style="width: auto; height: 500px; margin-top:20px; "></div>
 
         <script type="text/javascript">
               google.load("visualization", "1", {packages:["corechart"]});
@@ -111,7 +100,7 @@
                         var date_obj = new Date('{{ d.timestamp|date:'c' }}');
 
                         data.addRows([
-                                [date_obj.toLocaleString(), {{ d.temperature }}, {{ d.humidity }}],
+                                [date_obj.toLocaleString(), {{ d.temperature }}, {{ d.humidity }}]
                         ]);
 
                 {% endfor %}
@@ -134,7 +123,29 @@
               }
             </script>
     </div>
-    <div class="col-md-1"></div>
+
+</div>
+ <h1 style="text-align: center" >Pomiary</h1>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table id="tableGraph" class="table">
+            <tr>
+
+                <th>Temperatura</th>
+                <th>Wilgotność</th>
+                <th>Data</th>
+            </tr>
+            {% for d in data|dictsortreversed:"timestamp" %}
+            <tr>
+                <td class="col-md-4">{{ d.temperature }} &#x2103</td>
+                <td class="col-md-4">{{ d.humidity }} % RH</td>
+                <td class="col-md-4">{{ d.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-2"></div>
 </div>
 {% endif %}
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
