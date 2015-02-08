@@ -14,11 +14,14 @@ body {
 .navbar-default {
     background-color: #7F3137;
     border: none;
+
+
 }
 
 
 .custom {
     position: fixed;
+    z-index:1030;
     top: 50px;
     width:100%;
 }

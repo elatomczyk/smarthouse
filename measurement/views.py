@@ -139,3 +139,5 @@ def deleteScope(request, nameSensor):
     scope = Scope.objects.filter(idUser=user, sensor = sensor.id)
     scope.delete()
     return HttpResponseRedirect('/scope')
+def contactHtml(request):
+    return render(request, 'contact.html')

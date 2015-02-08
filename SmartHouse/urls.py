@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^scope/$',views.scope, name="scope"),
     url(r'^scope/form/(?P<pk>\d+)/$', views.formScope, name='formScope'),
     url(r'^scope/form/(?P<nameSensor>[0-9a-zA-Z  _-]+)/$', views.deleteScope, name='deleteScope'),
+    url(r'^contact/$', views.contactHtml, name="contact"),
 )
 
 if settings.DEBUG:
