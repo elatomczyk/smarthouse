@@ -46,7 +46,6 @@ body {
 }
 .col-md-3 {
     position: static;
-
 }
 
 .col-md-12 {
@@ -60,8 +59,9 @@ body {
 }
 
 .btn-primary:active, .btn-primary:hover{
-    color: #714354;
-    background-color: #fdeee2;
+    color: #fdeee2;
+    background-color: #714354;
+
     border-color: #7F3137;
 }
 
@@ -93,4 +93,23 @@ body {
 #logout:hover{
     text-decoration: none;
     color: #7F3137;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #7F3137;
+    border-color: #7F3137;
+}
+
+.panel-primary {
+    border-color: #714354;
 }
