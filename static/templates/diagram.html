@@ -4,19 +4,15 @@
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  	<script type="text/javascript"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <link href="/static/css/datepicker.css" rel="stylesheet">
 
-    <script>
-      $(function() {
-        $( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
-        $( "#datepicker2" ).datepicker({ dateFormat: "yy-mm-dd" });
-      });
-    </script>
+
+
 {% endblock %}
   {% block content %}
     {% if user.is_anonymous %}
+
+
     <div class="jumbotron">
       <div class="container">
         <h1>Aby mieć dostęp do danych, musisz się zalogować!</h1>
@@ -25,75 +21,129 @@
     </div>
     {% endif %}
     {% if user.is_authenticated %}
-    <form action="{% url 'diagram' %}" method="post">
+
+    <form role="form" action="{% url 'diagram' %}" method="post">
     {% csrf_token %}
-    <p>Od: <input type="text" name="dateStart" id="datepicker">
-    Do: <input type="text" name="dateEnd" id="datepicker2"></p>
+            <div class="row">
+            <div class="col-md-2"></div>
+            <div class="form-group  col-md-4">
+                <div class='input-group date' >
+                    <input type='text' name="dateStart" class="form-control " id="datepicker" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
 
-    <label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
-			<select name="s" >
-				<option value="" selected="selected">Sensor</option>
-				{% for s in sensor %}
-	 				<option value="{{ s}}">{{ s }}</option>
-				{% endfor %}
-            </select>
-    <p><input type="submit" value="Szukaj" id="filtr_date" /></p>
+            <div class="form-group col-md-4">
+                <div class='input-group date'>
+                    <input type='text' name="dateEnd" class="form-control" id='datepicker2'  />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            </div>
+
+            <div  class="row">
+                <div class="col-md-2"></div>
+                    <div class="form-group col-md-8">
+                        <label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
+                        <select name="s"  class="form-control col-md-8">
+                            <option value="" selected="selected">Sensor</option>
+                            {% for s in sensor %}
+                                <option value="{{ s}}">{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input class="form-control btn btn-primary"  type="submit" value="Szukaj"  />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
     </form>
-    <p>{{ text }}</p>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
-     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table">
+                <tr>
 
-      function drawChart() {
-        var data = new google.visualization.DataTable();
+                    <th>Temperatura</th>
+                    <th>Wilgotność</th>
+                    <th>Data</th>
+                </tr>
+            {% for d in data|dictsortreversed:"timestamp" %}
+                <tr>
+                    <td class="col-md-4">{{ d.temperature }}    </td>
+                    <td class="col-md-4">{{ d.humidity }}    </td>
+                    <td class="col-md-4">{{ d.timestamp }}   </td>
+                </tr>
+    {% endfor %}
+    </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
-		data.addColumn('string', 'Data');
-		data.addColumn('number', 'Temperatura');
-		data.addColumn('number', 'Wilgotność');
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
 
-        {% for d in data %}
+            <div id="chart_div" style="width: auto; height: 500px;"></div>
 
-                var date_obj = new Date('{{ d.timestamp|date:'c' }}');
+             <script type="text/javascript">
+              google.load("visualization", "1", {packages:["corechart"]});
+              google.setOnLoadCallback(drawChart);
 
-                data.addRows([
-                        [date_obj.toLocaleString(), {{ d.temperature }}, {{ d.humidity }}],
-                ]);
+              function drawChart() {
+                var data = new google.visualization.DataTable();
 
-        {% endfor %}
+                data.addColumn('string', 'Data');
+                data.addColumn('number', 'Temperatura');
+                data.addColumn('number', 'Wilgotność');
 
-        var options = {
-          title: 'Pomiary',
-          curveType: 'function',
-          lineWidth: 2,
-          colors: ['#9FC700', '#F57D15'],
-          vAxes: {0: {logScale: false, title: 'Temperatura [C]'},
-                  1: {logScale: false, minValue: 0, maxValue: 100, title: 'Wilgotność [%RH]'}},
+                {% for d in data %}
 
-          series:{0:{targetAxisIndex:0},
-                  1:{targetAxisIndex:1}}
-        };
+                        var date_obj = new Date('{{ d.timestamp|date:'c' }}');
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                        data.addRows([
+                                [date_obj.toLocaleString(), {{ d.temperature }}, {{ d.humidity }}],
+                        ]);
 
-        chart.draw(data, options);
-      }
-    </script>
-<h3>Pomiary:</h3>
-<table>
-    <tr>
-        <th>Data</th>
-        <th>Temperatura</th>
-        <th>Wilgotność</th>
-    </tr>
-{% for d in data|dictsortreversed:"timestamp" %}
-    <tr>
-        <td>{{ d.timestamp }}   |</td>
-        <td>{{ d.temperature }}    |</td>
-        <td>{{ d.humidity }}    |</td>
-    </tr>
-{% endfor %}
-</table>
-{% endif %}
+                {% endfor %}
+
+                var options = {
+                  title: 'Pomiary',
+                  curveType: 'function',
+                  lineWidth: 2,
+                  colors: ['#9FC700', '#F57D15'],
+                  vAxes: {0: {logScale: false, title: 'Temperatura [C]'},
+                          1: {logScale: false, minValue: 0, maxValue: 100, title: 'Wilgotność [%RH]'}},
+
+                  series:{0:{targetAxisIndex:0},
+                          1:{targetAxisIndex:1}}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+              }
+            </script>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    {% endif %}
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="/static/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+
+      $(function() {
+        $( "#datepicker" ).datepicker({format:'yyyy-mm-dd'});
+        $( "#datepicker2" ).datepicker({format:'yyyy-mm-dd'});
+      });
+</script>
   {% endblock %}
