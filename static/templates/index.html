@@ -33,8 +33,12 @@
     {% else %}
         <div class="jumbotron">
             <div class="container">
-                <h1>Aby mieć dostęp do danych, musisz się zalogować!</h1>
-                <p><a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a></p>
+                <div class="col-md-1"></div>
+                <div class="col-md-10 text-center">
+                    <h2>Aby mieć dostęp do danych, musisz się zalogować!</h2>
+                    <a class="btn btn-primary" href="{% url 'django.contrib.auth.views.login' %}" role="button">Zaloguj &raquo;</a>
+                </div>
+                <div class="col-md-1"></div>
             </div>
         </div>
     {% endif %}

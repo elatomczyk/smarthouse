@@ -45,6 +45,23 @@ body {
     font-size: 20px;
 }
 
+.navbar-default .navbar-brand:hover {
+    color: #fdeee2;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .navbar-default .navbar-nav > li > a {
     color: #FDEEE2;
     text-transform: uppercase;
