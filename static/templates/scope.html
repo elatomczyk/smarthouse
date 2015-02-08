@@ -1,52 +1,74 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid">
-<div class="row-fluid">
- 	{% if user.is_authenticated %}
- 	<h1 style="text-align: center">Lista urządzeń:</h1>
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-                    <form action="{% url 'scope' %}" enctype="multipart/form-data" method="post">
-                    <div class="form-group">
-                        {% csrf_token %}
-                        <label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
-                        <select class="form-control col-md-9" name="s" >
-                            <option value="" selected="selected">Sensor</option>
-                                {% for s in sensor %}
-                                    <option value="{{ s}}">{{ s }}</option>
-                                {% endfor %}
-                        </select>
-                        <input type="submit" class="btn btn-primary col-md-3" name="bt1" value="Szukaj">
-                    </div>
-                    </form>
 
-			{% if state %}
-				<table class="table">
-                <caption>Czujnik: {{ sensorName }}</caption>
-					<tr>
-						<td>Temperatura maksymalna: </td>
-						<td>{{ data.tempMax}} &#x2103</td>
-					</tr>
-					<tr>
-						<td>Temperatura minimalna: </td>
-						<td>{{ data.tempMin }} &#x2103</td>
-					</tr>
-					<tr>
-						<td>Wilgotność maksymalna: </td>
-						<td>{{ data.humMax }} %RH</td>
-					</tr>
-					<tr>
-						<td>Wilgotność minimalna: </td>
-						<td>{{ data.humMin }} %RH</td>
-					</tr>
-				</table>
-				<a href="{% url 'deleteScope' sensorName %}"><span class="glyphicon bigger glyphicon-remove-sign"></span></a>
-			{% endif %}
+{% if user.is_authenticated %}
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h1 style="text-align: center">Lista urządzeń:</h1>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<form  role ="form" action="{% url 'scope' %}" enctype="multipart/form-data" method="post">
+		<div class="col-md-5">
+			{% csrf_token %}
+			<label for="d{{ forloop.counter }}">{{ s.choice_text }}</label>
+			<select class="form-control col-md-5" name="s" >
+				<option value="" selected="selected">Sensor</option>
+				{% for s in sensor %}
+				<option value="{{ s}}">{{ s }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-3">
+			<input type="submit" class="form-control btn btn-primary" name="bt1" value="Szukaj">
+		</div>
+
+
+
+
+	</form>
+
+	<div class="col-md-2"></div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+
+		{% if state %}
+		<table class="table">
+			<caption>Czujnik: {{ sensorName }}</caption>
+			<tr>
+				<td>Temperatura maksymalna: </td>
+				<td>{{ data.tempMax}} &#x2103</td>
+			</tr>
+			<tr>
+				<td>Temperatura minimalna: </td>
+				<td>{{ data.tempMin }} &#x2103</td>
+			</tr>
+			<tr>
+				<td>Wilgotność maksymalna: </td>
+				<td>{{ data.humMax }} %RH</td>
+			</tr>
+			<tr>
+				<td>Wilgotność minimalna: </td>
+				<td>{{ data.humMin }} %RH</td>
+			</tr>
+		</table>
+		<a href="{% url 'deleteScope' sensorName %}"><span class="glyphicon bigger glyphicon-remove-sign"></span></a>
+		{% endif %}
 
 		{% else %}
-			<p>Nie jesteś uprawniony do oglądania tych treści!</p>
-			<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
-</div><div class="col-md-3"></div>
-	{% endif %}
-</div></div>
- {% endblock %}
+		<p>Nie jesteś uprawniony do oglądania tych treści!</p>
+		<p>Kliknij <a href="/login/">tu</a> aby się zalogować.</p>
+
+		{% endif%}
+	</div>
+	<div class="col-md-2"></div>
+</div>
+
+
+
+{% endblock %}
