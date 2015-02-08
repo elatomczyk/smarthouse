@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1 style="text-align: center">Logowanie</h1>
     <div class="col-md-4"></div>
     <div class="col-md-4">
         {% if form.errors %}
@@ -16,9 +17,9 @@
             <div class="form-group form-inline">
                 <input type="submit" class="col-md-5 btn btn-primary" name="submit" value="Zaloguj" />
                 <div class="col-md-2"></div>
-                <a class="btn btn-primary col-md-5" type="button" id="przycisk_zarejestruj" href="/register">Zarejestruj</a>
+                <a class="btn btn-primary col-md-5" type="button" id="przycisk_zarejestruj" href="/register">Rejestracja</a>
             </div>
         </form>
-        <div class="col-md-4"></div>
     </div>
+    <div class="col-md-4"></div>
 {% endblock %}
