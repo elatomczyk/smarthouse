@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1 style="text-align: center">Rejestracja</h1>
-    <form role="form" action="/register/" method="post">
-        {% csrf_token %}
-        <label for="username">Login:</label>
-        <input class="form-control" id="username" maxlength="30" name="username" type="text">
-        <label for="email">Adres email:</label>
-        <input class="form-control" id="email" name="email" type="email">
-        <label for="password1">Hasło:</label>
-        <input class="form-control" id="password1" name="password1" type="password">
-        <label for="password2">Powtórz hasło:</label>
-        <input class="form-control" id="password2" name="password2" type="password">
-        <input type="submit"  class="form-control btn btn-primary col-md-3" value="Rejestracja" />
-    </form>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form role="form" action="/register/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" id="username" placeholder="Login" maxlength="30" name="username" type="text">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="email" placeholder="Adres email" name="email" type="email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="password1" placeholder="Hasło" name="password1" type="password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="password2" placeholder="Powtórz hasło" name="password2" type="password">
+            </div>
+            <div class="form-group form-inline">
+                <input type="submit" class="col-md-5 btn btn-primary" value="Zarejestruj" />
+                <div class="col-md-2"></div>
+                <a class="btn btn-primary col-md-5" type="button" href="{% url 'django.contrib.auth.views.login' %}" role="button">Wróć</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
 {% endblock %}
+
+
+
+
+
