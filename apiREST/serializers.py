@@ -12,6 +12,7 @@ class SensorSerializer(serializers.ModelSerializer):
 
 
 class MeasurementDataSerializer(serializers.ModelSerializer):
+    idSensor = serializers.StringRelatedField()
     class Meta:
         model = MeasurementData
         fields = ('idSensor', 'timestamp', 'temperature', 'humidity',)

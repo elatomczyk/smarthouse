@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
+
 class Rooms(models.Model):
     nameRoom = models.CharField(max_length=100)
 

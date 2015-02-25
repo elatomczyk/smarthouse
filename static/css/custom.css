@@ -1,0 +1,152 @@
+body {
+    background-color: #fdeee2;
+    padding-top: 140px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.container {
+    width: 1024px;
+}
+
+.navbar-fixed-top {
+    background-color: #3f242f !important;
+}
+
+.navbar-default {
+    background-color: #7F3137;
+    border: none;
+
+
+}
+
+
+.custom {
+    position: fixed;
+    z-index:1030;
+    top: 50px;
+    width:100%;
+}
+
+.navbar-fixed-lower {
+    position: static;
+}
+
+.mine {
+    margin-left: 30px;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #fdeee2;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar-default .navbar-nav > li > a {
+    color: #FDEEE2;
+    text-transform: uppercase;
+}
+
+.margin-new{
+    margin-top:100px;
+}
+
+.btn-primary {
+    color: #fdeee2;
+    background-color: #7F3137;
+    border-color: #714354;
+}
+
+.btn-primary:active, .btn-primary:hover{
+    color: #fdeee2;
+    background-color: #714354;
+    border-color: #7F3137;
+}
+
+.form-control:focus{
+    border-color: #7F3137;
+    box-shadow: #7F3137;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(113, 67, 84, 0.60);
+}
+
+.jumbotron {
+    background-color: #fdeee2;
+}
+
+.jumbotron h1 {
+    font-size: 33px;
+}
+
+
+.bigger {
+    font-size: 30px;
+    color: #7F3137;
+}
+
+.myclass {
+    text-align: right;
+    color: #fdeee2;
+    font-size: 14px;
+    padding: 15px;
+    text-transform: capitalize;
+}
+#logout{
+    color: #fdeee2;
+}
+
+#logout:hover{
+    text-decoration: none;
+    color: #7F3137;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #7F3137;
+    border-color: #7F3137;
+}
+
+.panel-primary {
+    border-color: #714354;
+}
+#tableGraph th{
+
+    color: #7F3137;
+}
+h1 {
+    padding-bottom: 15px;
+    color: #3F242F;
+}
+
+.datepicker table tr td.active.active{
+    background-color: #3F242F !important;
+    background-image: -moz-linear-gradient(center top , #7F3137, #7F3137);
+}

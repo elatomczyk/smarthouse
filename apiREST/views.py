@@ -9,13 +9,18 @@ from rest_framework.views import APIView
 
 class MeasurementDataREST(APIView):
     def get(self, request, format=None):
-        serializer_Measurement = MeasurementDataSerializer(MeasurementData.objects.filter(idSensor=1).order_by('timestamp').last())
+        measurement = []
+        sensor = Sensor.objects.all()
+        for s in sensor:
+            measurement.append(MeasurementData.objects.filter(idSensor=s).order_by('timestamp').last())
+        serializer_Measurement = MeasurementDataSerializer(measurement, many=True)
         return Response(serializer_Measurement.data)
 
 
 class MeasurementGraphREST(APIView):
-    def get(self, request, limit, format=None):
-        dataGraph = MeasurementDataSerializer(MeasurementData.objects.filter(idSensor=1).order_by('-timestamp')[:limit], many=True)
+    def get(self, request, limit,nameSensor, format=None):
+        sensor = Sensor.objects.get(nameSensor=nameSensor)
+        dataGraph = MeasurementDataSerializer(MeasurementData.objects.filter(idSensor=sensor).order_by('-timestamp')[:limit], many=True)
         return Response(dataGraph.data)
 
 

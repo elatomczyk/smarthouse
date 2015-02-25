@@ -64,7 +64,7 @@ def diagram(request):
             text = "----"
         else:
             text = "Wszystkie Pomiary"
-            data = MeasurementData.objects.all()
+            data = MeasurementData.objects.filter(idSensor=1)
             sensor = Sensor.objects.all()
 
         sensor = Sensor.objects.all()
