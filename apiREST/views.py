@@ -18,9 +18,9 @@ class MeasurementDataREST(APIView):
 
 
 class MeasurementGraphREST(APIView):
-    def get(self, request, limit,nameSensor, format=None):
+    def get(self, request, dateFrom,dateTo,nameSensor, format=None):
         sensor = Sensor.objects.get(nameSensor=nameSensor)
-        dataGraph = MeasurementDataSerializer(MeasurementData.objects.filter(idSensor=sensor).order_by('-timestamp')[:limit], many=True)
+        dataGraph = MeasurementDataSerializer(MeasurementData.objects.filter(idSensor=sensor, timestamp__gte=dateFrom, timestamp__lte=dateTo).order_by('-timestamp')[:100], many=True)
         return Response(dataGraph.data)
 
 
