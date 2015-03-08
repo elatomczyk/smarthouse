@@ -1,5 +1,5 @@
 body {
-    background-color: #fdeee2;
+    background-color: #ebe7df;
     padding-top: 140px;
     font-family: "Ubuntu", sans-serif;
 }
@@ -9,16 +9,13 @@ body {
 }
 
 .navbar-fixed-top {
-    background-color: #3f242f !important;
+    background-color: #663347 !important;
 }
 
 .navbar-default {
-    background-color: #7F3137;
+    background-color: #c79daf;
     border: none;
-
-
 }
-
 
 .custom {
     position: fixed;
@@ -46,24 +43,13 @@ body {
 }
 
 .navbar-default .navbar-brand:hover {
-    color: #fdeee2;
+    color: #ebe7df;
     background-color: transparent;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 .navbar-default .navbar-nav > li > a {
-    color: #FDEEE2;
+    color: #ebe7df;
     text-transform: uppercase;
 }
 
@@ -72,15 +58,15 @@ body {
 }
 
 .btn-primary {
-    color: #fdeee2;
-    background-color: #7F3137;
-    border-color: #714354;
+    color: #ebe7df;
+    background-color: #16242d;
+    border-color: #16242d;
 }
 
 .btn-primary:active, .btn-primary:hover{
-    color: #fdeee2;
-    background-color: #714354;
-    border-color: #7F3137;
+    color: #ebe7df;
+    background-color: #858e8b;
+    border-color: #858e8b;
 }
 
 .form-control:focus{
@@ -90,7 +76,7 @@ body {
 }
 
 .jumbotron {
-    background-color: #fdeee2;
+    background-color: #ebe7df;
 }
 
 .jumbotron h1 {
@@ -100,23 +86,23 @@ body {
 
 .bigger {
     font-size: 30px;
-    color: #7F3137;
+    color: #663347;
 }
 
 .myclass {
     text-align: right;
-    color: #fdeee2;
+    color: #ebe7df;
     font-size: 14px;
     padding: 15px;
     text-transform: capitalize;
 }
 #logout{
-    color: #fdeee2;
+    color: #ebe7df;
 }
 
 #logout:hover{
     text-decoration: none;
-    color: #7F3137;
+    color: #C79DAF;
 }
 
 .clickable{
@@ -130,23 +116,22 @@ body {
 
 .panel-primary>.panel-heading {
     color: #fff;
-    background-color: #7F3137;
-    border-color: #7F3137;
+    background-color: #663347;
+    border-color: #C79DAF;
 }
 
 .panel-primary {
-    border-color: #714354;
+    border-color: #663347;
 }
 #tableGraph th{
-
-    color: #7F3137;
+    color: #663347;
 }
 h1 {
     padding-bottom: 15px;
-    color: #3F242F;
+    color: #663347;
 }
 
 .datepicker table tr td.active.active{
     background-color: #3F242F !important;
-    background-image: -moz-linear-gradient(center top , #7F3137, #7F3137);
+    background-image: -moz-linear-gradient(center top , #C79DAF, #C79DAF);
 }
