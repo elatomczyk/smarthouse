@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from measurement.models import MeasurementData, Sensor, Scope
+from measurement.models import MeasurementData, Sensor, Scope, Rooms
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from measurement.forms import ScopeForm
@@ -13,14 +13,14 @@ from django.http import HttpResponseRedirect
 #metoda do wysywania maili
 #threadmethod()
 
+
 def index(request):
     sensor = Sensor.objects.all()
     data = []
     for s in sensor:
         m = MeasurementData.objects.filter(idSensor=s).order_by('timestamp').last()
         if m:
-            data.append(m)
-
+            data.append(MeasurementClass(m.timestamp, m.temperature, m.humidity, m.idSensor, s.idRoom))
     return render_to_response('index.html', {'data': data}, context_instance=RequestContext(request))
 
 
@@ -52,30 +52,35 @@ def measurement(request):
 
 
 def diagram(request):
-    sensor = Sensor.objects.all()
+    data = []
+    rooms = Rooms.objects.all()
     try:
         if request.POST:
-            sensorPOST = request.POST.get('s', False)
-            sensorId = Sensor.objects.get(nameSensor=sensorPOST)
+            roomsPOSTGraph = request.POST.get('r', False)
+            roomsName = Rooms.objects.get(nameRoom=roomsPOSTGraph)
             date_start = request.POST.get('dateStart', False)
             date_end = request.POST.get('dateEnd', False)
 
-            data = MeasurementData.objects.filter(idSensor=sensorId, timestamp__gte=date_start, timestamp__lte=date_end)
+            for s in Sensor.objects.all():
+                if roomsName == s.idRoom:
+                    measurement_graph = MeasurementData.objects.filter(idSensor=s.id, timestamp__gte=date_start, timestamp__lte=date_end)
+                    for m in measurement_graph:
+                        data.append(MeasurementClass(m.timestamp, m.temperature, m.humidity, m.idSensor, roomsName))
             text = "----"
         else:
             text = "Wszystkie Pomiary"
+            sensor = Sensor.objects.get(id=1)
+            roomsName = sensor.idRoom
             data = MeasurementData.objects.filter(idSensor=1)
-            sensor = Sensor.objects.all()
 
-        sensor = Sensor.objects.all()
     except ObjectDoesNotExist:
         textproblem = "Prosze o wybranie czujnika."
-        return render(request, 'diagram.html', { 'problem': textproblem, 'sensor': sensor })
+        return render(request, 'diagram.html', {'problem': textproblem, 'rooms': rooms })
     except ValidationError as e:
         textproblem = "Prosze o wybranie daty."
-        return render(request, 'diagram.html', { 'problem': textproblem, 'sensor': sensor})
-    return render_to_response('diagram.html', {'data': data, 'sensor': sensor, 'text': text}, context_instance=RequestContext(request))
+        return render(request, 'diagram.html', {'problem': textproblem, 'rooms': rooms})
 
+    return render_to_response('diagram.html', {'data': data, 'rooms': rooms, 'text': text, 'roomName': roomsName}, context_instance=RequestContext(request))
 
 
 def create_scope(request, sensorName):
@@ -143,11 +148,29 @@ def formScope(request, pk):
                               {'idSensor': sensorID, 'form': form},
                               context_instance=RequestContext(request))
 
+
 def deleteScope(request, nameSensor):
     user = request.user
     sensor = Sensor.objects.get(nameSensor=nameSensor)
     scope = Scope.objects.filter(idUser=user, sensor = sensor.id)
     scope.delete()
     return HttpResponseRedirect('/scope')
+
+
 def contactHtml(request):
     return render(request, 'contact.html')
+
+
+class MeasurementClass():
+    timestamp = ""
+    temperature = ""
+    humidity = ""
+    idSensor = ""
+    room = ""
+
+    def __init__(self, time, temp, hum, senor, room):
+        self.timestamp = time
+        self.temperature = temp
+        self.humidity = hum
+        self.idSensor = senor
+        self.room = room

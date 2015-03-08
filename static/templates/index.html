@@ -7,7 +7,7 @@
                 <div class="col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{{d.idSensor}}</h3>
+                            <h3 class="panel-title">{{d.room}}</h3>
                             <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                         </div>
                         <div class="panel-body">
@@ -19,6 +19,10 @@
                                 <tr>
                                     <td><h2><small><sup>Wilgotność: </sup></small></h2></td>
                                     <td class="text-right"><h2>{{ d.humidity }} % RH</h2></td>
+                                </tr>
+                                  <tr>
+                                    <td><h2><small><sup>Czujnik: </sup></small></h2></td>
+                                    <td class="text-right"><h2>{{ d.idSensor }}</h2></td>
                                 </tr>
                                 <tr>
                                     <td><h2><small><sup>Data: </sup></small></h2></td>
