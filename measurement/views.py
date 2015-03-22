@@ -11,7 +11,7 @@ from mailing.views import threadmethod
 from django.http import HttpResponseRedirect
 
 #metoda do wysywania maili
-#threadmethod()
+# threadmethod()
 
 
 def index(request):

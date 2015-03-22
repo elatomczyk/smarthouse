@@ -44,10 +44,10 @@ def email():
                 difference2=humidity-h_min
                 d.update({'Wilgotnosc minimalna':difference2})
             print"Send Mail to ", user_name
+            diff_list = d.iteritems()
             ctx = {
                    'user': user_name,
-                   'difference': d.values(),
-                   'what': d.keys(),
+                   'difference': diff_list,
                    'temperature': temperature,
                    'humidity': humidity,
                    'timestamp': timestamp,
@@ -72,7 +72,7 @@ class MyThread(Thread):
 
         while True:
             email()
-            time.sleep(600)
+            time.sleep(43200)
 
 
 def threadmethod():
