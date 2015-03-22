@@ -2,6 +2,7 @@
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
 
 def contact(request):
     errors = []
@@ -13,15 +14,16 @@ def contact(request):
         if request.POST.get('email') and '@' not in request.POST['email']:
             errors.append('Wprowadź poprawny adres e-mail!')
         if not errors:
-          try:
-            send_mail(
-                request.POST['subject'],
-                request.POST['message'],
-                request.POST.get('email', 'smarthousekrakow@gmail.com'),
-                ['smarthousekrakow@gmail.com'],
-            )
-            return HttpResponse('Thank you, form has been submitted successfully')
-          except Exception, err: 
-            return HttpResponse(str(err))
+            try:
+                send_mail(
+                    request.POST['subject'],
+                    request.POST['message'],
+                    request.POST.get('email', 'smarthousekrakow@gmail.com'),
+                    ['smarthousekrakow@gmail.com'],
+                )
+                return HttpResponseRedirect("/")
+
+            except Exception, err:
+                return HttpResponse(str(err))
     return render(request, 'contact_form.html',
         {'errors': errors})
