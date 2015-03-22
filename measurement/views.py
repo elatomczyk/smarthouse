@@ -157,10 +157,6 @@ def deleteScope(request, nameSensor):
     return HttpResponseRedirect('/scope')
 
 
-def contactHtml(request):
-    return render(request, 'contact.html')
-
-
 class MeasurementClass():
     timestamp = ""
     temperature = ""
