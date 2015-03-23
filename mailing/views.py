@@ -24,25 +24,39 @@ def email():
         subject = "Informacje ze strony Smarthouse"
         to = [mail]
         from_email = 'smarthousekrakow@gmail.com'
-        ctx = {
-               'user': user_name,
-               'temperature': temperature,
-               'humidity': humidity,
-               'timestamp': timestamp,
-               'room_name': room_name,
-               'name_sensor': name_sensor
-        }
-        message = get_template('email.html').render(Context(ctx))
-        msg = EmailMessage(subject, message, to=to, from_email=from_email)
-        msg.content_subtype = 'html'
-        print user_name.id
-
+        # print user_name.id
         t_max = s.temp_max
         t_min = s.temp_min
         h_max = s.hum_max
         h_min = s.hum_min
         if(temperature>t_max or temperature<t_min) or (humidity>h_max or humidity<h_min):
+            d = dict()
+            if(temperature>t_max):
+                difference1=temperature-t_max
+                d = {'Temperatura makasymalna':difference1}
+            elif(temperature<t_min):
+                difference1=temperature-t_min
+                d = {'Temperatura minimalna':difference1}
+            if(humidity>h_max):
+                difference2=humidity-h_max
+                d.update({'Wilgotnosc maksymalna':difference2})
+            elif(humidity<h_min):
+                difference2=humidity-h_min
+                d.update({'Wilgotnosc minimalna':difference2})
             print"Send Mail to ", user_name
+            diff_list = d.iteritems()
+            ctx = {
+                   'user': user_name,
+                   'difference': diff_list,
+                   'temperature': temperature,
+                   'humidity': humidity,
+                   'timestamp': timestamp,
+                   'room_name': room_name,
+                   'name_sensor': name_sensor
+            }
+            message = get_template('email.html').render(Context(ctx))
+            msg = EmailMessage(subject, message, to=to, from_email=from_email)
+            msg.content_subtype = 'html'
             msg.send()
         else:
             print"No Send Mail"
