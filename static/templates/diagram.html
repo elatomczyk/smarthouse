@@ -41,7 +41,7 @@
         <div class="col-md-2"></div>
         <div class="form-group  col-md-4">
             <div class='input-group date' >
-                <input type='text' name="dateStart" class="form-control " id="datepicker" />
+                <input type='text' name="dateStart" class="form-control" value="{{ firstData }}" id="datepicker" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
             </div>
@@ -49,7 +49,7 @@
 
         <div class="form-group col-md-4">
             <div class='input-group date'>
-                <input type='text' name="dateEnd" class="form-control" id='datepicker2'  />
+                <input type='text' name="dateEnd" class="form-control" value="{{ lastData }}" id='datepicker2'  />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
             </div>
@@ -62,7 +62,6 @@
         <div class="form-group col-md-8">
             <label for="d{{ forloop.counter }}">{{ r.choice_text }}</label>
             <select name="r"  class="form-control col-md-8">
-                <option value="" selected="selected">Wybierz Pokój</option>
                 {% for r in rooms %}
                 <option value="{{ r}}">{{ r }}</option>
                 {% endfor %}
@@ -73,7 +72,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <input class="form-control btn btn-primary"  type="submit" value="Szukaj"  />
+            <input class="form-control btn btn-primary"  type="submit" value="Wygeneruj"  />
         </div>
         <div class="col-md-2"></div>
     </div>
