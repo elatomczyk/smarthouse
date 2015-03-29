@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
+from django.utils.dateformat import DateFormat
 from measurement.models import MeasurementData, Sensor, Scope, Rooms
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -20,7 +21,8 @@ def index(request):
     for s in sensor:
         m = MeasurementData.objects.filter(idSensor=s).order_by('timestamp').last()
         if m:
-            data.append(MeasurementClass(m.timestamp, m.temperature, m.humidity, m.idSensor, s.idRoom))
+            date_format = DateFormat(m.timestamp)
+            data.append(MeasurementClass(date_format.format('d.m.Y, h:m:s'), m.temperature, m.humidity, m.idSensor, s.idRoom))
     return render_to_response('index.html', {'data': data}, context_instance=RequestContext(request))
 
 
@@ -54,6 +56,7 @@ def measurement(request):
 def diagram(request):
     data = []
     rooms = Rooms.objects.all()
+
     try:
         if request.POST:
             roomsPOSTGraph = request.POST.get('r', False)
@@ -63,24 +66,34 @@ def diagram(request):
 
             for s in Sensor.objects.all():
                 if roomsName == s.idRoom:
-                    measurement_graph = MeasurementData.objects.filter(idSensor=s.id, timestamp__gte=date_start, timestamp__lte=date_end)
+                    measurement_graph = MeasurementData.objects.filter(idSensor=s.id, timestamp__gte=date_start,
+                                                                       timestamp__lte=date_end)
                     for m in measurement_graph:
+
                         data.append(MeasurementClass(m.timestamp, m.temperature, m.humidity, m.idSensor, roomsName))
             text = "----"
+            first_data = date_start
+            last_data = date_end
         else:
             text = "Wszystkie Pomiary"
             sensor = Sensor.objects.get(id=1)
             roomsName = sensor.idRoom
             data = MeasurementData.objects.filter(idSensor=1)
 
+            df = DateFormat(data[0].timestamp)
+            first_data = df.format('Y-m-d')
+            df2 = DateFormat(data[len(data)-1].timestamp)
+            last_data = df2.format('Y-m-d')
+
     except ObjectDoesNotExist:
         textproblem = "Prosze o wybranie czujnika."
-        return render(request, 'diagram.html', {'problem': textproblem, 'rooms': rooms })
+        return render(request, 'diagram.html', {'problem': textproblem, 'rooms': rooms})
     except ValidationError as e:
         textproblem = "Prosze o wybranie daty."
         return render(request, 'diagram.html', {'problem': textproblem, 'rooms': rooms})
 
-    return render_to_response('diagram.html', {'data': data, 'rooms': rooms, 'text': text, 'roomName': roomsName}, context_instance=RequestContext(request))
+    return render_to_response('diagram.html', {'data': data, 'rooms': rooms, 'text': text, 'roomName': roomsName,
+                                               'firstData': first_data, 'lastData': last_data}, context_instance=RequestContext(request))
 
 
 def create_scope(request, sensorName):

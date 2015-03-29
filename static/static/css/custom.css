@@ -135,3 +135,8 @@ h1 {
     background-color: #3F242F !important;
     background-image: -moz-linear-gradient(center top , #C79DAF, #C79DAF);
 }
+#dataIndex {
+
+    color: #858e8b;
+    font-size: medium;
+}
