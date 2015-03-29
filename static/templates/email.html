@@ -1,11 +1,16 @@
 <div style="text-transform:capitalize;">Witaj {{ user }},</div><br />
-Przekroczony zakres: <br />
+PRZEKROCZONY ZAKRES: <br />
 {% for what, number in difference %}
-        <div class="col-lg-2">{{ what }} o {{ number }}</div>
+        {% if what == 'Temperatura makasymalna' or 'Temperatura minimalna' %}
+            <div class="col-lg-2">{{ what }} o <strong>{{ number }}<sup>o</sup>C</strong></div>
+        {% else %}
+            <div class="col-lg-2">{{ what }} o <strong>{{ number }}%RH</strong></div>
+        {% endif %}
 {% endfor %}
 <br />
 Urządzenie mierzące: <strong> {{ name_sensor }} </strong><br />
-Data pomiaru: <strong>{{ timestamp }}</strong><br/>
+Data pomiaru: <strong>{{ timestamp|date:'d-m-Y' }}</strong><br/>
+Godzina pomiaru: <strong>{{ timestamp|time:'H:i:s' }}</strong><br/>
 Nazwa pomieszczenia: <strong>{{ room_name }}</strong><br/>
-Temperatura wynosi: <strong>{{ temperature }}<sup>o</sup>C</strong><br/>
-Wilgotność wynosi: <strong>{{ humidity }}%RH</strong>
+Temperatura: <strong>{{ temperature }}<sup>o</sup>C</strong><br/>
+Wilgotność: <strong>{{ humidity }}%RH</strong>
