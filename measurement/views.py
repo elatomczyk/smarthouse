@@ -21,8 +21,7 @@ def index(request):
     for s in sensor:
         m = MeasurementData.objects.filter(idSensor=s).order_by('timestamp').last()
         if m:
-            date_format = DateFormat(m.timestamp)
-            data.append(MeasurementClass(date_format.format('d.m.Y, h:m:s'), m.temperature, m.humidity, m.idSensor, s.idRoom))
+            data.append(MeasurementClass(m.timestamp, m.temperature, m.humidity, m.idSensor, s.idRoom))
     return render_to_response('index.html', {'data': data}, context_instance=RequestContext(request))
 
 

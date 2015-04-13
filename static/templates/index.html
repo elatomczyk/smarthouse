@@ -28,7 +28,7 @@
                                 <h2><small><sup>Data: </sup></small></h2>
                             </div>
                             <div class="col-md-6">
-                                 <h2 id="dataIndex" class="text-right">{{ d.timestamp }}</h2>
+                                 <h2 id="dataIndex" class="text-right">{{ d.timestamp|date:'d-m-Y' }}, {{ d.timestamp|time:'H:i:s' }}</h2>
                             </div>
 
                         </div>
