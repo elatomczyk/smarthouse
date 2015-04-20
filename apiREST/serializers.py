@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 
 class SensorSerializer(serializers.ModelSerializer):
-
+    idRoom = serializers.StringRelatedField()
     class Meta:
         model = Sensor
         fields = ('id', 'nameSensor', 'idRoom')
