@@ -42,14 +42,30 @@ def user_home(request):
 
 #metoda ta zapisuje dane uzyskane od czujnika do bazy
 def measurement(request):
-    print str(request.method)
-    data_json = json.loads(request.body)
-    m = MeasurementData(timestamp=data_json['timestamp'],
-                        temperature=data_json['temperature'],
-                        humidity=data_json['humidity'])
-    m.save()
+    try:
 
-    return JsonResponse({'status': 'ok'})
+        if request.method == 'POST':
+            d = json.loads(request.body)
+            print json.loads(request.body)
+            sensor = Sensor.objects.get(id=int(d['idSensor']))
+            m = MeasurementData(
+                            timestamp=d['timestamp'],
+                            temperature=d['temperature'],
+                            humidity=d['humidity'],
+                            idSensor=sensor)
+
+            m.save()
+            print 'dasas'
+            return JsonResponse({'status': 'ok'})
+
+    except ValueError, e:
+        print 'dasas2'
+        return JsonResponse({'status': 'fail'})
+    except ObjectDoesNotExist:
+        print 'dasas'
+        return JsonResponse({'status': 'fail'})
+    finally:
+        print 'koniec'
 
 
 def diagram(request):
